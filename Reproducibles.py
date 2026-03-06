@@ -4,7 +4,7 @@ class ElementoMultimedia:
         self.duracion=duracion
         self.fecha_lanzamiento=fecha_lanzamiento
     def mostrar(self):
-       print(f'Estas reproduciendo {titulo} lanzada el {fecha_lanzamiento} y de duracion {duracion}')
+       print(f'Estas reproduciendo {self.titulo} lanzada el {self.fecha_lanzamiento} y de duracion {self.duracion}')
 
 class Cancion(ElementoMultimedia):
     def __init__(self,titulo,duracion,fecha_lanzamiento,artista,album,genero):
@@ -14,7 +14,7 @@ class Cancion(ElementoMultimedia):
         self.genero = genero
     def mostrar(self):
         super().mostrar()
-        print(f'Del artista {artista} y el album {album}, Genero: {genero}')
+        print(f'Del artista {self.artista} y el album {self.album}, Genero: {self.genero}')
 
 class Podcast(ElementoMultimedia):
     def __init__(self,titulo,duracion,fecha_lanzamiento,presentador,num_episodio,tema):
@@ -24,7 +24,7 @@ class Podcast(ElementoMultimedia):
         self.tema = tema
     def mostrar(self):
         super().mostrar()
-        print(f'Episodio {num_episodio} sobre {tema} del presentador {presentador}')
+        print(f'Episodio {self.num_episodio} sobre {self.tema} del presentador {self.presentador}')
 
 
 
