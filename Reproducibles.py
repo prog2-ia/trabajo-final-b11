@@ -1,5 +1,5 @@
 class ElementoMultimedia:
-    def __init__(self,titulo,duracion,fecha_lancamiento):
+    def __init__(self,titulo,duracion,fecha_lanzamiento):
         self.titulo=titulo
         self.duracion=duracion
         self.fecha_lanzamiento=fecha_lanzamiento
