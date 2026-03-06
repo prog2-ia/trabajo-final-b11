@@ -13,9 +13,9 @@ class Cancion(ElementoMultimedia):
 class Podcast(ElementoMultimedia):
     def __init__(self,titulo,duracion,fecha_lanzamiento,presentador,num_episodio,tema):
         super().__init__(titulo, duracion, fecha_lanzamiento)
-        self.presentador=presentador
-        self.num_episodio=num_episodio
-        self.tema=tema
+        self.presentador = presentador
+        self.num_episodio = num_episodio
+        self.tema = tema
 
 
 
