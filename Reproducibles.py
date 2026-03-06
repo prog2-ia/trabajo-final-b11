@@ -17,5 +17,8 @@ class Podcast(ElementoMultimedia):
         self.num_episodio=num_episodio
         self.tema=tema
 
+class prueba:
+    pass
+
 
 
