@@ -25,6 +25,28 @@ class Podcast(ElementoMultimedia):
     def mostrar(self):
         super().mostrar()
         print(f'Episodio {self.num_episodio} sobre {self.tema} del presentador {self.presentador}')
+class Playlist:
+    def __init__(self,nombre_playlist):
+        self.nombre_playlist=nombre_playlist
+        self.pistas=[]
+    def añadir_pista(self,pista):
+        self.pistas.append(pista)
+    def eliminar_pista(self,pista):
+        self.pistas.remove(pista)
+    def calcular_duracion_playlist(self):
+        duracion_t=0
+        for cancion in self.pistas:
+            duracion_t+=cancion.duracion
+        return duracion_t
+    def mostrar_playlist(self):
+        print(f'Nombre de la playlist: {self.nombre_playlist}')
+        for pista in self.pistas:
+            pista.mostrar_info()
+
+
+
+
+
 
 
 
