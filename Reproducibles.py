@@ -1,8 +1,20 @@
-class ElementoMultimedia:
+from abc import ABC, abstractmethod
+class ElementoMultimedia(ABC):
     def __init__(self,titulo:str,duracion,fecha_lanzamiento):
-        self.titulo=titulo
-        self.duracion=duracion
-        self.fecha_lanzamiento=fecha_lanzamiento
+        self.titulo = titulo
+        self.duracion = duracion
+        self.fecha_lanzamiento = fecha_lanzamiento
+
+    @property
+    def duracion(self):
+        return self._duracion
+
+    @duracion.setter
+    def duracion(self, valor):
+        if valor <= 0:
+        #error a hacer
+
+    @abstractmethod
     def mostrar(self):
        return f'Estas reproduciendo {self.titulo} lanzada el {self.fecha_lanzamiento} y de duracion {self.duracion}'
 
