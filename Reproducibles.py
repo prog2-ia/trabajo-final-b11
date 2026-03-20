@@ -63,3 +63,4 @@ class Biblioteca:
         for elemento in self.catalogo:
             elementos_biblioteca+=f'{elemento.mostrar()}\n'
         return elementos_biblioteca
+
