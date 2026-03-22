@@ -88,8 +88,6 @@ def __add__(self, otra_playlist):
 def __eq__(self, otra_playlist):
     return self.pistas == otra_playlist.pistas
 
-
-
 class Biblioteca:
     def __init__(self, nombre_biblioteca):
         self.nombre = nombre_biblioteca
