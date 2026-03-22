@@ -71,11 +71,10 @@ def calcular_duracion_playlist(self):
 def mostrar_playlist(self):
     if not self.pistas:
             return f'Nombre de la playlist: {self.nombre_playlist}\n no tiene contenido.'
-
     pistas_playlist=''
     for pista in self.pistas:
         pistas_playlist+=f'{pista.mostrar()}\n'
-        return f'Nombre de la playlist: {self.nombre_playlist}\n Canciones: \n{pistas_playlist}'
+    return f'Nombre de la playlist: {self.nombre_playlist}\n Canciones: \n{pistas_playlist}'
 
 def __add__(self, otra_playlist):
     nueva = Playlist(f'Mezcla las playlists: {self.nombre_playlist} y {otra_playlist.nombre_playlist}')
@@ -83,7 +82,7 @@ def __add__(self, otra_playlist):
     for pista in otra_playlist.pistas:
         if pista not in nueva.pistas:
             nueva.pistas.append(pista)
-            return nueva
+    return nueva
 
 
 def __eq__(self, otra_playlist):
@@ -95,17 +94,52 @@ class Biblioteca:
         self.catalogo = []
         self.playlists = []
 
-def agregar_al_catalogo(self, elemento):
-    self.catalogo.append(elemento)
-    return f'{elemento.titulo} se ha añadido al catálogo general.'
+    def agregar_al_catalogo(self, elemento):
+        self.catalogo.append(elemento)
+        return f'{elemento.titulo} se ha añadido al catálogo general.'
 
-def crear_playlist(self, nombre_playlist: str):
-    nueva_playlist = Playlist(nombre_playlist)
-    self.playlists.append(nueva_playlist)
-    return nueva_playlist
+    def crear_playlist(self, nombre_playlist: str):
+        nueva_playlist = Playlist(nombre_playlist)
+        self.playlists.append(nueva_playlist)
+        return nueva_playlist
 
-def mostrar_catalogo(self):
-    elementos_biblioteca=''
-    for elemento in self.catalogo:
-        elementos_biblioteca += f'{elemento.mostrar()}\n'
+    def mostrar_catalogo(self):
+        elementos_biblioteca=''
+        for elemento in self.catalogo:
+            elementos_biblioteca += f'{elemento.mostrar()}\n'
         return elementos_biblioteca
+class Usuario:
+    def __init__(self, nombre, gmail):
+        self.nombre = nombre
+        self.gmail = gmail
+    def mostrar_perfil(self):
+        return f'Perfil de Usuario | Nombre: {self.nombre} | Correo: {self.gmail}'
+class Artista:
+    def __init__(self, nombre, genero_principal):
+        self.nombre = nombre
+        self.genero_principal = genero_principal
+        self.oyentes_mensuales= 0
+    def actualizar_oyentes(self,cantidad):
+        self.oyentes_mensuales = cantidad
+    def mostrar_perfil(self):
+        return f' Artista: {self.nombre} | Género: {self.genero_principal} | Oyentes: {self.oyentes_mensuales}'
+class Album:
+    def __init__(self, titulo, año_lanzamiento, artista):
+        self.titulo = titulo
+        self.año_lanzamiento = año_lanzamiento
+        self.canciones = []
+
+        if isinstance(artista,Artista):
+            self.artista_creador = artista
+        else:
+            self.artista_creador = Artista('Artista Desconocido','Desconocido')
+    def agregar_cancion(self, cancion):
+        self.canciones.append(cancion)
+    def mostrar_album(self):
+        texto_album = f'Álbum: {self.titulo} ({self.año_lanzamiento}) - Por: {self.artista_creador.nombre}\n'
+        texto_album += 'Pistas:\n'
+        numero = 1
+        for cancion in self.canciones:
+            texto_album += f' {numero}. {cancion.titulo}\n'
+            numero += 1
+        return texto_album
