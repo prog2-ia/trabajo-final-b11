@@ -85,6 +85,7 @@ def __add__(self, otra_playlist):
             nueva.pistas.append(pista)
             return nueva
 
+
 def __eq__(self, otra_playlist):
     return self.pistas == otra_playlist.pistas
 
