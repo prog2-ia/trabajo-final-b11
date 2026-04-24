@@ -1,18 +1,19 @@
 from abc import ABC, abstractmethod
+from typing import Self, Any
 
 class ElementoMultimedia(ABC):
-    def __init__(self,titulo:str,duracion,fecha_lanzamiento):
+    def __init__(self,titulo: str,duracion: int,fecha_lanzamiento: int) ->None:
         self.titulo = titulo
         self.duracion = duracion
         self.fecha_lanzamiento = fecha_lanzamiento
 
     @property
-    def duracion(self):
+    def duracion(self) -> int | float:
         return self._duracion
 
     # Si duracion es menor de 0, se asocia un valor predeterminado 3.0.
     @duracion.setter
-    def duracion(self, valor):
+    def duracion(self, valor: int | float) ->None:
         if valor <= 0:
             self._duracion = 3.0
         else:
@@ -20,60 +21,60 @@ class ElementoMultimedia(ABC):
 
     # Metodo abstracto para utilizarlo en otras clases con diferentes contenidos
     @abstractmethod
-    def mostrar(self):
+    def mostrar(self) -> str:
         return f'Estas reproduciendo {self.titulo} lanzada el {self.fecha_lanzamiento} y de duracion {self.duracion}'
 
     # Compara si dos pistas son iguales
-    def __eq__(self, otro):
+    def __eq__(self, otro: Any) ->bool:
         if isinstance(otro, ElementoMultimedia):
             return self.titulo == otro.titulo and self.duracion == otro.duracion
         else:
             return False
 
 class Cancion(ElementoMultimedia):
-    def __init__(self,titulo,duracion,fecha_lanzamiento,artista,album,genero):
+    def __init__(self,titulo: str,duracion: int,fecha_lanzamiento: int,artista: str,album: str,genero: str) -> None:
         super().__init__(titulo, duracion, fecha_lanzamiento)
         self.artista = artista
         self.album = album
         self.genero = genero
 
-    def mostrar(self):
+    def mostrar(self) -> str:
         mostrar_elemento=super().mostrar()
         return f'{mostrar_elemento} del artista {self.artista} y el album {self.album}. Genero: {self.genero}'
 
 class Podcast(ElementoMultimedia):
-    def __init__(self,titulo,duracion,fecha_lanzamiento,presentador,num_episodio,tema):
+    def __init__(self,titulo: str,duracion: int,fecha_lanzamiento: int,presentador: str,num_episodio: int,tema: str)-> None:
         super().__init__(titulo, duracion, fecha_lanzamiento)
         self.presentador = presentador
         self.num_episodio = num_episodio
         self.tema = tema
 
-    def mostrar(self):
+    def mostrar(self) -> str:
         mostrar_elemento=super().mostrar()
         return f'{mostrar_elemento} episodio {self.num_episodio} sobre {self.tema} del presentador {self.presentador}'
 
 class Playlist:
-    def __init__(self,nombre_playlist):
+    def __init__(self,nombre_playlist: str) -> None:
             self.nombre_playlist=nombre_playlist
             self.pistas=[]
 
     # Añade una pista a la lista si no estaba
-    def añadir_pista(self,pista):
+    def añadir_pista(self,pista: ElementoMultimedia) -> None:
         if pista not in self.pistas:
             self.pistas.append(pista)
 
     # Elimina una pista de la lista si estaba
-    def eliminar_pista(self,pista):
+    def eliminar_pista(self,pista:ElementoMultimedia) -> None:
         if pista in self.pistas:
             self.pistas.remove(pista)
 
-    def calcular_duracion_playlist(self):
+    def calcular_duracion_playlist(self) -> int:
         duracion_t = 0
         for cancion in self.pistas:
             duracion_t+=cancion.duracion
         return duracion_t
 
-    def mostrar_playlist(self):
+    def mostrar_playlist(self) -> str:
         if not self.pistas:
             return f'Nombre de la playlist: {self.nombre_playlist}\n no tiene contenido.'
         pistas_playlist=''
@@ -82,7 +83,7 @@ class Playlist:
         return f'Nombre de la playlist: {self.nombre_playlist}\n Canciones: \n{pistas_playlist}'
 
     # Mezcla dos playlists sin duplicados
-    def __add__(self, otra_playlist):
+    def __add__(self, otra_playlist: Self) -> Self:
         nueva = Playlist(f'Mezcla las playlists: {self.nombre_playlist} y {otra_playlist.nombre_playlist}')
         nueva.pistas = self.pistas.copy()
         for pista in otra_playlist.pistas:
@@ -91,46 +92,46 @@ class Playlist:
         return nueva
 
     # Compara dos playlists
-    def __eq__(self, otra_playlist):
+    def __eq__(self, otra_playlist: Any) -> bool:
         return self.pistas == otra_playlist.pistas
 
 class Biblioteca:
-    def __init__(self, nombre_biblioteca):
+    def __init__(self, nombre_biblioteca: str) ->None:
         self.nombre = nombre_biblioteca
         self.catalogo = []
         self.playlists = []
 
-    def agregar_al_catalogo(self, elemento):
+    def agregar_al_catalogo(self, elemento: ElementoMultimedia) -> str:
         self.catalogo.append(elemento)
         return f'{elemento.titulo} se ha añadido al catálogo general.'
 
-    def crear_playlist(self, nombre_playlist: str):
+    def crear_playlist(self, nombre_playlist: str) -> Playlist:
         nueva_playlist = Playlist(nombre_playlist)
         self.playlists.append(nueva_playlist)
         return nueva_playlist
 
-    def mostrar_catalogo(self):
+    def mostrar_catalogo(self) -> str:
         elementos_biblioteca=''
         for elemento in self.catalogo:
             elementos_biblioteca += f'{elemento.mostrar()}\n'
         return elementos_biblioteca
 class Usuario:
-    def __init__(self, nombre, gmail):
+    def __init__(self, nombre: str, gmail: str) -> None:
         self.nombre = nombre
         self.gmail = gmail
-    def mostrar_perfil(self):
+    def mostrar_perfil(self) -> str:
         return f'Perfil de Usuario | Nombre: {self.nombre} | Correo: {self.gmail}'
 class Artista:
-    def __init__(self, nombre, genero_principal):
+    def __init__(self, nombre: str, genero_principal: str) -> None:
         self.nombre = nombre
         self.genero_principal = genero_principal
         self.oyentes_mensuales= 0
-    def actualizar_oyentes(self,cantidad):
+    def actualizar_oyentes(self,cantidad: int) -> None:
         self.oyentes_mensuales = cantidad
-    def mostrar_perfil(self):
+    def mostrar_perfil(self) -> str:
         return f' Artista: {self.nombre} | Género: {self.genero_principal} | Oyentes: {self.oyentes_mensuales}'
 class Album:
-    def __init__(self, titulo, año_lanzamiento, artista):
+    def __init__(self, titulo: str, año_lanzamiento: int, artista: str) -> None:
         self.titulo = titulo
         self.año_lanzamiento = año_lanzamiento
         self.canciones = []
@@ -139,9 +140,9 @@ class Album:
             self.artista_creador = artista
         else:
             self.artista_creador = Artista('Artista Desconocido','Desconocido')
-    def agregar_cancion(self, cancion):
+    def agregar_cancion(self, cancion: Cancion):
         self.canciones.append(cancion)
-    def mostrar_album(self):
+    def mostrar_album(self) -> str:
         texto_album = f'Álbum: {self.titulo} ({self.año_lanzamiento}) - Por: {self.artista_creador.nombre}\n'
         texto_album += 'Pistas:\n'
         numero = 1
