@@ -1,18 +1,19 @@
 from abc import ABC, abstractmethod
+from typing import Self, Any
 
 class ElementoMultimedia(ABC):
-    def __init__(self,titulo:str,duracion,fecha_lanzamiento):
+    def __init__(self,titulo: str,duracion: int,fecha_lanzamiento: int) -> None:
         self.titulo = titulo
         self.duracion = duracion
         self.fecha_lanzamiento = fecha_lanzamiento
 
     @property
-    def duracion(self):
+    def duracion(self) -> int | float:
         return self._duracion
 
     # Si duracion es menor de 0, se asocia un valor predeterminado 3.0.
     @duracion.setter
-    def duracion(self, valor):
+    def duracion(self, valor: int | float) -> None:
         if valor <= 0:
             self._duracion = 3.0
         else:
@@ -20,11 +21,11 @@ class ElementoMultimedia(ABC):
 
     # Metodo abstracto para utilizarlo en otras clases con diferentes contenidos
     @abstractmethod
-    def mostrar(self):
+    def mostrar(self) -> None:
         return f'Estas reproduciendo {self.titulo} lanzada el {self.fecha_lanzamiento} y de duracion {self.duracion}'
 
     # Compara si dos pistas son iguales
-    def __eq__(self, otro):
+    def __eq__(self, otro: Any) -> bool:
         if isinstance(otro, ElementoMultimedia):
             return self.titulo == otro.titulo and self.duracion == otro.duracion
         else:
