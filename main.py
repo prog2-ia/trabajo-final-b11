@@ -5,7 +5,7 @@ from perfiles import Usuario, Artista
 from album import Album
 
 
-def mostrar_menu():
+def mostrar_menu() -> None:
     print('\n' + '=' * 40)
     print('Mi plataforma de Música ')
     print('=' * 40)
@@ -20,8 +20,8 @@ if __name__ == '__main__':
     usuario_actual = Usuario('Pedro', 'picapiedra@gmail.com')
 
     artista_prueba = Artista('Bad Bunny', 'Reggaetón')
-    cancion1 = Cancion('Tití Me Preguntó', 4.03, '2022', artista_prueba.nombre, 'Un Verano Sin Ti', 'Reggaetón')
-    cancion2 = Cancion('Safaera', 4.55, '2020', artista_prueba.nombre, 'YHLQMDLG', 'Reggaetón')
+    cancion1 = Cancion('Tití Me Preguntó', 4.03, 2022, artista_prueba.nombre, 'Un Verano Sin Ti', 'Reggaetón')
+    cancion2 = Cancion('Safaera', 4.55, 2020, artista_prueba.nombre, 'YHLQMDLG', 'Reggaetón')
 
     mi_biblioteca.agregar_al_catalogo(cancion1)
     mi_biblioteca.agregar_al_catalogo(cancion2)
@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
             duracion = float(input('Dime la duración (ej. 3.5): '))
 
-            fecha = input('Dime el año de lanzamiento: ')
+            fecha = int(input('Dime el año de lanzamiento: '))
             artista = input('Dime el nombre del artista: ')
             album = input('Dime el nombre del álbum: ')
             genero = input('Dime el género musical: ')
