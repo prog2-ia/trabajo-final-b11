@@ -14,6 +14,10 @@ class Cancion(ElementoMultimedia):
 class Podcast(ElementoMultimedia):
     def __init__(self, titulo: str, duracion: int, fecha_lanzamiento: int, presentador: str, num_episodio: int, tema: str)-> None:
         super().__init__(titulo, duracion, fecha_lanzamiento)
+
+        if num_episodio < 1:
+            raise ValueError('El número de episodio debe ser al menos 1')
+        
         self.presentador = presentador
         self.num_episodio = num_episodio
         self.tema = tema
