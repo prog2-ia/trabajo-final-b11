@@ -5,15 +5,12 @@ class Playlist:
     def __init__(self, nombre_playlist: str) -> None:
             # El nombre de la playlist no puede estar vacío
             if not nombre_playlist.strip():
-                raise TypeError('Nombre de la playlist inválido, no puede estar vacío')
+                raise ValueError('Nombre de la playlist inválido, no puede estar vacío')
             self.nombre_playlist = nombre_playlist
             self.pistas = list[ElementoMultimedia] = []
 
     # Añade una pista a la lista si no estaba
     def añadir_pista(self,pista: ElementoMultimedia) -> None:
-        # Impedir que se añada una pista que no sea de tipo ElementoMultimedia
-        if not isinstance(pista, ElementoMultimedia):
-            raise TypeError('Sólo pueden añadirse objetos de tipo ElementoMultimedia')
         if pista not in self.pistas:
             self.pistas.append(pista)
 
@@ -53,5 +50,5 @@ class Playlist:
     def __eq__(self, otra_playlist: Any) -> bool:
         # Si no es una playlist, el mét.odo no puede compararlas
         if not isinstance(otra_playlist, Playlist):
-            return False
+            raise TypeError('El tipo de dato debe ser Playlist"')
         return self.pistas == otra_playlist.pistas
