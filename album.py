@@ -5,7 +5,7 @@ class Album:
     def __init__(self, titulo: str, año_lanzamiento: int, artista: Artista) -> None:
         #Impedimos que el nombre del álbum esté vacío
         if not titulo.strip():
-            raise TypeError('Título no válido, no puede estar vacío')
+            raise ValueError('Título no válido, no puede estar vacío')
 
         #Impedimos que se añada un año de lanzamiento negativo o mayor que el año actual
         if año_lanzamiento < 0 or año_lanzamiento > 2026:
@@ -23,9 +23,7 @@ class Album:
         self.artista_creador = artista
 
     def agregar_cancion(self, cancion: Cancion) -> None:
-        #Aplicamos el mismo manejo esta vez para el mét.odo "agregar_cancion"
-        if not isinstance(cancion, Cancion):
-            raise TypeError('Canción no válida, se esperaba una instancia de "Cancion"')
+        self.canciones.append(cancion)
 
     def mostrar_album(self) -> str:
         texto_album = f'Álbum: {self.titulo} ({self.año_lanzamiento}) - Por: {self.artista_creador.nombre}\n'
