@@ -1,18 +1,18 @@
 class Usuario:
-    def __init__(self, nombre: str, gmail: str) -> None:
+    def __init__(self, nombre: str, correo: str) -> None:
         if not nombre.strip():
             raise ValueError('El nombre del usuario no puede estar vacío')
-        self.nombre = nombre
-        self.gmail = gmail
+        self.nombre = nombre.strip()
+        self.correo = correo
         
     def mostrar_perfil(self) -> str:
-        return f'Perfil de Usuario | Nombre: {self.nombre} | Correo: {self.gmail}'
+        return f'Perfil de Usuario | Nombre: {self.nombre} | Correo: {self.correo}'
 
 class Artista:
     def __init__(self, nombre: str, genero_principal: str) -> None:
         if not nombre.strip():
             raise ValueError('El nombre del artista no puede estar vacío')
-        self.nombre = nombre
+        self.nombre = nombre.strip()
         self.genero_principal = genero_principal
         self.oyentes_mensuales = 0
         

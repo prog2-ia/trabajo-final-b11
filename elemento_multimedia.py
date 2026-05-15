@@ -31,7 +31,7 @@ class ElementoMultimedia(ABC):
     # Compara si dos pistas son iguales
     def __eq__(self, otro: Any) -> bool:
         if isinstance(otro, ElementoMultimedia):
-            raise TypeError('Tipo de datos inválido, debe ser "ElementoMultimedia")
+            raise TypeError('Tipo de datos inválido, debe ser "ElementoMultimedia"')
         return self.titulo == otro.titulo and self.duracion == otro.duracion
         
 

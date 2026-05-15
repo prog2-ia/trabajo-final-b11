@@ -11,7 +11,7 @@ class Album:
         if año_lanzamiento < 0 or año_lanzamiento > 2026:
             raise ValueError('Año de lanzamiento inválido; debe estar entre 0 y 2026')
 
-        self.titulo = titulo
+        self.titulo = titulo.strip()
         self.año_lanzamiento = año_lanzamiento
         self.canciones: list[Cancion] = []
 
@@ -22,8 +22,24 @@ class Album:
 
         self.artista_creador = artista
 
-    def agregar_cancion(self, cancion: Cancion) -> None:
-        self.canciones.append(cancion)
+    def __iadd__(self, cancion: Cancion) -> 'Album':
+        # Podemos añadir canciones coon +=
+        if not isinstance(cancion, Cancion):
+            raise TypeError('Solo puedes sumar objetos de tipo Cancion')
+        if cancion in self.canciones:
+            raise ValueError('La canción ya está en el álbum')
+        else:
+            self.canciones.append(cancion)
+        return self
+
+    def __isub__(self, cancion: Cancion) -> 'Album':
+        # Podemos eliminar canciones con -=
+        if cancion in self.canciones:
+            self.canciones.remove(cancion)
+        else:
+            raise ValueError('La canción a eliminar no está en el álbum')
+        return self
+
 
     def mostrar_album(self) -> str:
         texto_album = f'Álbum: {self.titulo} ({self.año_lanzamiento}) - Por: {self.artista_creador.nombre}\n'

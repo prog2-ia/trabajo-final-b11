@@ -6,18 +6,30 @@ class Playlist:
             # El nombre de la playlist no puede estar vacío
             if not nombre_playlist.strip():
                 raise ValueError('Nombre de la playlist inválido, no puede estar vacío')
-            self.nombre_playlist = nombre_playlist
-            self.pistas = list[ElementoMultimedia] = []
+            self.nombre_playlist = nombre_playlist.strip()
+            self.pistas: list[ElementoMultimedia] =[]
 
-    # Añade una pista a la lista si no estaba
-    def añadir_pista(self,pista: ElementoMultimedia) -> None:
-        if pista not in self.pistas:
-            self.pistas.append(pista)
-
-    # Elimina una pista de la lista si estaba
-    def eliminar_pista(self,pista:ElementoMultimedia) -> None:
+    def __iadd__(self, pista: ElementoMultimedia) -> 'Playlist':
+        # Podemos añadir pistas con +=
+        if not isinstance(pista, ElementoMultimedia):
+            raise TypeError('Solo puedes sumar objetos de tipo "ElementoMultimedia"')
         if pista in self.pistas:
+            raise ValueError('La pista ya está en la playlist')
+        else:
+            self.pistas.append(pista)
+        return self
+
+    def __isub__(self, pista: ElementoMultimedia) -> 'Playlist':
+        # Podemos eliminar pistas con -=
+        if pista not in self.pistas:
+            raise ValueError('La pista no está en la playlist')
+        else:
             self.pistas.remove(pista)
+        return self
+
+    def __len__(self) -> int:
+        # Al usar len(), devuelve la cantidad de pistas de la playlist
+        return len(self.pistas)
 
     def calcular_duracion_playlist(self) -> int:
         duracion_t = 0
@@ -50,5 +62,5 @@ class Playlist:
     def __eq__(self, otra_playlist: Any) -> bool:
         # Si no es una playlist, el mét.odo no puede compararlas
         if not isinstance(otra_playlist, Playlist):
-            raise TypeError('El tipo de dato debe ser Playlist"')
+            return False
         return self.pistas == otra_playlist.pistas
